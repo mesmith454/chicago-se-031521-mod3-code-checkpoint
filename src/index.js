@@ -2,84 +2,31 @@
 let baseUrl = "http://localhost:3000"
 
 document.addEventListener("DOMContentLoaded", () => {
-    //define variables
-    const image = document.querySelector(".image")
-    const likes = document.querySelector(".like-button")
-    const comment = document.querySelector(".comment-button")
-
-    //fetch from server
+    //fetch from base
     const fetchGram = () => {
         fetch(baseUrl)
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            data.forEach((item) => renderItem(item))           
-        })
-    }
-
-    //patch
-    const patchGram = () => {
-        fetch= (likes, comment) => {
-            method: 'PATCH',
-            headers; {
-                "Content-Type": "application/json"
-                "Accept": "application/json"
-            }
-            body: JSON.stringify({
-                'likes': likes,
-                'comment': comments
-            })
             .then(res => res.json())
-            .then(console.log)
-        }
+            .then(data => {
+                console.log(data)
+                data.forEach((gram) => renderGram(gram))   
+            }) 
+            // console.log("peaches") works
     }
 
-    //post
-    const postCom = () => {
-        fetch = (baseUrl) => {
-            method: 'POST',
-            headers; {     
-                "Content-Type": "application/json"
-                "Accept": "application/json"
-            }
-            body: JSON.stringify({
-                'likes' : likes,
-                'comment' : comments
-             })
-            .then(res => res.json())
-            .then(console.log)
-        }
-    }
-
-    //delete
-    const delCom = () => {
-        method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json"
-                "Accept": "application/json"
-            }
-            body: JSON.stringify({
-                'comment': comments
-            })
-            .then(res => res.json())
-            .then(console.log)
-    }
-    
-
-    //render page
-    const renderGram = (item) => {
+    const renderGram = () => {
         //create elements
-        let container = document.querySelector(".image-container")
-            let card = document.querySelector(".image-card")
-                let h2 = document.querySelector(".title")
-                let image = document.querySelector(".image") 
-                let likeSec = document.querySelector(".likes-section")
-                    let likes = document.querySelector(".likes")
-                    let likeBtn = document.querySelector(".like-button")
-                let comments = document.querySelector(".comments")
-                let comForm = document.querySelector(".comment-form")
-                    let input = document.querySelector(".comment-input")
-                    let submitBtn = document.querySelector(".comment-button")
+        // console.log("yo") this isn't logging, but fetchGram logs peaches. why is renderGram not getting called?
+
+        let h2 = document.querySelector(".title")
+        let image = document.querySelector(".image") 
+        let likes = document.querySelector(".likes")
+        let likeBtn = document.querySelector(".like-button")
+        let comments = document.querySelector(".comments")
+        const submitBtn = document.querySelector(".comment-button")
+        let commentForm = document.querySelector(".comment-form")
+        let likesSection = document.querySelector(".likes-section")
+        let imageCard = document.querySelector(".image-card")
+        let imageContainer = document.querySelector(".image-container")
         
         //define identifiers and set values
         h2.innerText = images.title
@@ -91,24 +38,36 @@ document.addEventListener("DOMContentLoaded", () => {
         submitBtn.innerText = "Post"
 
         //appending
-        comForm.append(input, submitBtn)
-        likeSec.append(likes, likeBtn)
-        card.append(h2, image, likeSec, comments, comForm)
-        container.appendChild(card)
+        commentForm.append(input, submitBtn)
+        likesSection.append(likes, likeBtn)
+        imageCard.append(h2, image, likesSection, comments, commentForm)
+        imageContainer.appendChild(imageCard)
 
         //event listeners
         likes.addEventListener('click', e => {
-            let itemID = e.target.data
-            likes.value ++
+            let gramId = e.target.data
+            gramId.likes.value ++
             let info = likes.innerText
-            patchGram(itemId, info)
+            patchGram(gramId, info)
         })
         
-        comment.addEventListener("submit", e => {
+        comment.addEventListener('submit', e => {
             e.preventDefault
             let comText = e.target.content.value
             postCom(comText)
         })
     }
-    fetchGram()
+    fetchGram();
 })
+   
+
+//focusing in on 
+    // cleaning up fetch syntax x
+    // keeping variable names and function calls consistent x
+    // syntax my dude x
+    //make sure routes lead to right place
+
+//notes for Friday
+    //why is renderGram not getting called?
+    //old js moved to src/indextest.js
+    //does everything get called?
