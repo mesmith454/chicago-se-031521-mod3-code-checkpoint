@@ -58,12 +58,9 @@ const rendCom = (comObj) => {
     comUl.append(newCom)
 }
 
-
-
 //event listeners
 lBtn.addEventListener('click', e => {
     let likeN = parseInt(lSpan.textContent)
-
     fetch('http://localhost:3000/images/1', {
         method: 'PATCH',
         headers: {
@@ -78,6 +75,26 @@ lBtn.addEventListener('click', e => {
         })
 })
 
-
+comForm.addEventListener('submit', e => {
+    e.preventDefault()
+    let newCom = {
+        id: '',
+        imageId: e.target.dataset.id,
+        content: e.target.comment.value
+    }
+    fetch('http://localhost:3000/comments', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+            'accept': 'application/json'
+        },
+        body: JSON.stringify(newCom)
+    })
+    .then(res => res.json())
+    .then(comObj => {
+        rendCom(comObj)
+        comForm.reset()
+    })
+})
 
 
